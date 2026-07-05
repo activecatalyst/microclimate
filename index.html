@@ -969,6 +969,11 @@ setInterval(()=>{ if(FC&&CACHE_META) render(); }, 60000);        // tick relativ
 setInterval(refresh, 15*60000);                                  // auto-refresh every 15 min
 document.addEventListener("visibilitychange",()=>{ if(!document.hidden) refresh(); });
 
+/* ---- offline app-shell: register the companion service worker (optional) ---- */
+if("serviceWorker" in navigator){
+  addEventListener("load",()=>{ navigator.serviceWorker.register("./sw.js").catch(()=>{}); });
+}
+
 /* ---- installable PWA: paint icons on a canvas so it stays single-file ---- */
 (function injectPWA(){
   function icon(s){
